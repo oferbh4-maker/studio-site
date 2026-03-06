@@ -16,21 +16,21 @@ export default function Home() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="min-h-screen flex flex-col justify-end px-8 pb-20 pt-32 border-b border-silk">
+      <section className="min-h-screen flex flex-col justify-end px-6 md:px-8 pb-16 md:pb-20 pt-28 md:pt-32 border-b border-silk">
         <div className="max-w-4xl">
           <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-muted mb-6">
             {home.heroLabel}
           </p>
           <h1
-            className="font-sans font-light leading-[1.08] tracking-tight text-charcoal mb-8"
-            style={{ fontSize: 'clamp(3.5rem, 8vw, 7rem)' }}
+            className="font-sans font-light leading-[1.08] tracking-tight text-charcoal mb-6 md:mb-8"
+            style={{ fontSize: 'clamp(2.8rem, 8vw, 7rem)' }}
           >
             {home.heroHeadline1}<br />{home.heroHeadline2}
           </h1>
-          <p className="font-sans text-[15px] text-muted max-w-[600px] leading-[1.85] mb-12">
+          <p className="font-sans text-[14px] md:text-[15px] text-muted max-w-[600px] leading-[1.85] mb-10 md:mb-12">
             {home.heroDesc}
           </p>
-          <div className="flex items-center gap-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-8">
             <Link
               href="/projects"
               className="font-sans text-[11px] tracking-[0.2em] uppercase text-charcoal border-b border-charcoal pb-0.5 hover:text-muted hover:border-muted transition-colors duration-300"
@@ -48,8 +48,8 @@ export default function Home() {
       </section>
 
       {/* ── Featured Work ── */}
-      <section className="px-8 py-20 mt-20">
-        <div className="flex items-baseline justify-between mb-16">
+      <section className="px-6 md:px-8 py-16 md:py-20 mt-0 md:mt-20">
+        <div className="flex items-baseline justify-between mb-12 md:mb-16">
           <h2 className="font-sans text-xs tracking-[0.3em] uppercase text-charcoal">{home.selectedWork}</h2>
           <Link
             href="/projects"
@@ -58,12 +58,14 @@ export default function Home() {
             {home.allProjects}
           </Link>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
           {featuredMeta.map((meta, i) => {
             const p = home.featuredProjects[i];
             return (
               <article key={meta.id} className="group cursor-pointer">
-                <div className="aspect-[4/5] overflow-hidden bg-silk mb-4">
+                {/* aspect-[4/5] on desktop, aspect-[16/9] on mobile for better fit */}
+                <div className="aspect-[16/9] md:aspect-[4/5] overflow-hidden bg-silk mb-4">
                   <img
                     src={meta.image}
                     alt={p.title}
@@ -80,14 +82,14 @@ export default function Home() {
       </section>
 
       {/* ── Philosophy ── */}
-      <section className="px-8 py-24 border-t border-silk">
+      <section className="px-6 md:px-8 py-20 md:py-24 border-t border-silk">
         <div className="max-w-2xl mx-auto text-center">
           <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-muted mb-8">
             {home.philosophy}
           </p>
           <blockquote
             className="font-sans font-light leading-snug text-charcoal mb-8"
-            style={{ fontSize: 'clamp(1.5rem, 3vw, 2.5rem)' }}
+            style={{ fontSize: 'clamp(1.4rem, 3vw, 2.5rem)' }}
           >
             {home.philosophyQuote}
           </blockquote>
@@ -101,11 +103,11 @@ export default function Home() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="px-8 py-20 bg-charcoal">
+      <section className="px-6 md:px-8 py-16 md:py-20 bg-charcoal">
         <div className="max-w-xl">
           <h2
             className="font-sans font-light text-cream mb-4 leading-tight"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
+            style={{ fontSize: 'clamp(1.8rem, 4vw, 3.5rem)' }}
           >
             {home.ctaHeadline} {home.ctaHeadline2}
           </h2>
