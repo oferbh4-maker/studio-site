@@ -59,7 +59,7 @@ export default function AboutPage() {
       </div>
 
      {/* Section 2: My Story - High-End Studio Layout (Aligned Top) */}
-<section style={{ 
+<section className="max-md:flex-col max-md:h-auto" style={{ 
   display: 'flex', 
   height: '100vh', 
   width: '100vw', 
@@ -68,13 +68,13 @@ export default function AboutPage() {
 }}>
   
   {/* צד שמאל: טקסט מוסט למעלה */}
-  <div style={{ 
+  <div className="max-md:w-full max-md:h-auto max-md:pt-12 max-md:pb-10 max-md:px-6" style={{ 
     width: '50%', 
     height: '100%',
     display: 'flex', 
     flexDirection: 'column', 
-    justifyContent: 'flex-start', // מעלה את הכל למעלה
-    padding: '12vh 8% 0 8%', // 12vh נותן מרווח מדויק מהחלק העליון של המסך
+    justifyContent: 'flex-start',
+    padding: '12vh 8% 0 8%',
     direction: lang === 'he' ? 'rtl' : 'ltr'
   }}>
     <span style={{ 
@@ -124,8 +124,8 @@ export default function AboutPage() {
     </div>
   </div>
 
-  {/* צד ימין: תמונה ללא שינוי (כבר נראית מעולה) */}
-  <div style={{ 
+  {/* צד ימין: תמונה */}
+  <div className="max-md:w-full max-md:h-[60vw]" style={{ 
     width: '50%', 
     height: '100%', 
     position: 'relative',
@@ -355,7 +355,7 @@ export default function AboutPage() {
   </div>
 </section>
       {/* ── 5. The Designer ── */}
-      <div className="px-4 py-8 md:px-16 mt-0 max-md:h-auto">
+      <div className="px-6 py-8 md:px-16 mt-0 max-md:h-auto">
         <p className="font-sans text-[13px] tracking-[0.55em] uppercase text-muted mb-8">
           {about.theTeam}
         </p>
@@ -445,11 +445,11 @@ export default function AboutPage() {
 
           {/* Image — The Designer: Ofer with son */}
           <div className="w-1/2 flex-shrink-0 bg-white p-1 rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.3)] overflow-hidden self-stretch mt-4 max-md:w-full max-md:overflow-visible max-md:h-auto max-md:mt-0">
-            {/* Mobile only: full uncropped photo, scale-100, object-contain */}
+            {/* Mobile only: full uncropped photo, no zoom, object-contain */}
             <img
               src="/images/fatherhood.jpg"
               alt={about.team[0]?.name}
-              className="w-full h-auto object-contain scale-100 hidden max-md:block"
+              className="w-full h-auto object-contain hidden max-md:block"
             />
             {/* Desktop: cover crop top — DO NOT MODIFY */}
             <div className="relative w-full h-full min-h-[300px] overflow-hidden rounded-sm hidden md:block">
