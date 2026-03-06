@@ -57,7 +57,7 @@ export default function ContactPage() {
       <div className="flex flex-col flex-1 md:justify-center overflow-y-auto">
 
         {/* Header */}
-        <div className="px-10 md:px-14 pt-2 pb-2 border-b border-silk">
+        <div className="px-6 md:px-14 pt-6 pb-4 border-b border-silk">
           <p className="font-sans text-[9px] tracking-[0.35em] uppercase text-muted mb-0.5">
             {contact.getInTouch}
           </p>
@@ -69,13 +69,61 @@ export default function ContactPage() {
           </h1>
         </div>
 
-        {/* Two-column */}
+        {/* Two-column on desktop, single column on mobile (info first, form second) */}
         <div className="grid grid-cols-1 md:grid-cols-2 border-b border-silk">
 
-          {/* Form — left on desktop, second on mobile */}
-          <div className="order-2 md:order-1 px-6 md:px-14 py-3 md:border-e border-silk">
+          {/* Info panel — first on mobile (order-1), right on desktop (order-2) */}
+          <div className="order-1 md:order-2 px-6 md:px-14 py-8 md:py-6 space-y-8 md:space-y-10 bg-[#F9F9F9] border-b md:border-b-0 border-silk">
+            <div>
+              <p className={infoLabelCls}>{contact.studioLabel}</p>
+              <div className="flex items-center gap-2">
+                <MapPin size={14} strokeWidth={1.5} className="flex-shrink-0 text-charcoal/50" />
+                <address className="not-italic font-sans text-sm text-charcoal leading-snug">{contact.studioAddress}</address>
+              </div>
+            </div>
+            <div>
+              <p className={infoLabelCls}>{contact.contactLabel}</p>
+              <div className="space-y-2 font-sans text-sm text-charcoal">
+                <a href={`https://mail.google.com/mail/?view=cm&to=${contact.email}`} target="_blank" rel="noopener noreferrer"
+                  className="flex items-center gap-2 hover:text-muted transition-colors duration-200">
+                  <Mail size={14} strokeWidth={1.5} className="flex-shrink-0 text-charcoal/50" />
+                  <span>{contact.email}</span>
+                </a>
+                <a href={`tel:${contact.phone.replace(/\s/g, '')}`}
+                  className="flex items-center gap-2 hover:text-muted transition-colors duration-200">
+                  <Phone size={14} strokeWidth={1.5} className="flex-shrink-0 text-charcoal/50" />
+                  <span>{contact.phone}</span>
+                </a>
+              </div>
+            </div>
+            <div>
+              <p className={infoLabelCls}>{contact.hoursLabel}</p>
+              <div className="space-y-0.5 font-sans text-sm text-charcoal">
+                <p>{contact.hoursWeekdays}</p>
+                <p className="text-muted">{contact.hoursNote}</p>
+              </div>
+            </div>
+            <div>
+              <p className={infoLabelCls}>{contact.followLabel}</p>
+              <div className="flex flex-wrap gap-5">
+                {[
+                  { label: 'Instagram', Icon: Instagram, href: 'https://www.instagram.com/oferbenhorin/' },
+                  { label: 'Facebook',  Icon: Facebook,  href: 'https://www.facebook.com/profile.php?id=61584449289296' },
+                  { label: 'WhatsApp',  Icon: MessageCircle, href: 'https://wa.me/972549044435' },
+                ].map(({ label, Icon, href }) => (
+                  <a key={label} href={href} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-2 font-sans text-[10px] tracking-wider uppercase text-charcoal/60 hover:text-charcoal transition-colors duration-200">
+                    <Icon size={15} strokeWidth={1.5} className="flex-shrink-0" />
+                    <span>{label}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Form — second on mobile (order-2), left on desktop (order-1) */}
+          <div className="order-2 md:order-1 px-6 md:px-14 py-8 md:py-6 md:border-e border-silk">
             {status === 'success' ? (
-              /* ── Success state ── */
               <div className="flex flex-col justify-center py-6">
                 <p className="font-sans text-[11px] tracking-[0.3em] uppercase text-muted mb-3">
                   {lang === 'he' ? 'ההודעה נשלחה' : 'Message received'}
@@ -140,60 +188,11 @@ export default function ContactPage() {
               </form>
             )}
           </div>
-
-          {/* Info — right on desktop, first on mobile */}
-          <div className="order-1 md:order-2 px-6 md:px-14 py-3 space-y-10 bg-[#F9F9F9] border-b md:border-b-0 border-silk">
-            <div>
-              <p className={infoLabelCls}>{contact.studioLabel}</p>
-              <div className="flex items-center gap-2">
-                <MapPin size={14} strokeWidth={1.5} className="flex-shrink-0 text-charcoal/50" />
-                <address className="not-italic font-sans text-sm text-charcoal leading-snug">{contact.studioAddress}</address>
-              </div>
-            </div>
-            <div>
-              <p className={infoLabelCls}>{contact.contactLabel}</p>
-              <div className="space-y-2 font-sans text-sm text-charcoal">
-                <a href={`https://mail.google.com/mail/?view=cm&to=${contact.email}`} target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-2 hover:text-muted transition-colors duration-200">
-                  <Mail size={14} strokeWidth={1.5} className="flex-shrink-0 text-charcoal/50" />
-                  <span>{contact.email}</span>
-                </a>
-                <a href={`tel:${contact.phone.replace(/\s/g, '')}`}
-                  className="flex items-center gap-2 hover:text-muted transition-colors duration-200">
-                  <Phone size={14} strokeWidth={1.5} className="flex-shrink-0 text-charcoal/50" />
-                  <span>{contact.phone}</span>
-                </a>
-              </div>
-            </div>
-            <div>
-              <p className={infoLabelCls}>{contact.hoursLabel}</p>
-              <div className="space-y-0.5 font-sans text-sm text-charcoal">
-                <p>{contact.hoursWeekdays}</p>
-                <p className="text-muted">{contact.hoursNote}</p>
-              </div>
-            </div>
-            <div>
-              <p className={infoLabelCls}>{contact.followLabel}</p>
-              <div className="flex flex-wrap gap-5">
-                {[
-                  { label: 'Instagram', Icon: Instagram, href: 'https://www.instagram.com/oferbenhorin/' },
-                  { label: 'Facebook',  Icon: Facebook,  href: 'https://www.facebook.com/profile.php?id=61584449289296' },
-                  { label: 'WhatsApp',  Icon: MessageCircle, href: 'https://wa.me/972549044435' },
-                ].map(({ label, Icon, href }) => (
-                  <a key={label} href={href} target="_blank" rel="noopener noreferrer"
-                    className="flex items-center gap-2 font-sans text-[10px] tracking-wider uppercase text-charcoal/60 hover:text-charcoal transition-colors duration-200">
-                    <Icon size={15} strokeWidth={1.5} className="flex-shrink-0" />
-                    <span>{label}</span>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
         </div>
 
-        {/* Submit Button — hidden on success */}
+        {/* Submit Button */}
         {status !== 'success' && (
-          <div className="mt-6 md:mt-12 pb-4 px-6 md:px-0 flex items-center justify-center">
+          <div className="mt-6 md:mt-12 pb-8 md:pb-4 px-6 md:px-0 flex items-center justify-center">
             <button
               type="submit"
               form="contact-form"
