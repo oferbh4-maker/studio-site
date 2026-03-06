@@ -58,25 +58,12 @@ export default function AboutPage() {
         </div>
       </div>
 
-     {/* Section 2: My Story - High-End Studio Layout (Aligned Top) */}
-<section className="max-md:flex-col max-md:h-auto" style={{ 
-  display: 'flex', 
-  height: '100vh', 
-  width: '100vw', 
-  overflow: 'hidden',
-  backgroundColor: '#FAF9F6' 
-}}>
-  
-  {/* צד שמאל: טקסט מוסט למעלה */}
-  <div className="max-md:w-full max-md:h-auto max-md:pt-12 max-md:pb-10 max-md:px-6" style={{ 
-    width: '50%', 
-    height: '100%',
-    display: 'flex', 
-    flexDirection: 'column', 
-    justifyContent: 'flex-start',
-    padding: '12vh 8% 0 8%',
-    direction: lang === 'he' ? 'rtl' : 'ltr'
-  }}>
+     {/* Section 2: My Story - High-End Studio Layout (Aligned Top) */}<section className="flex flex-col md:flex-row min-h-screen md:h-screen w-full bg-[#FAF9F6] overflow-hidden">
+        
+        {/* צד שמאל: טקסט מוסט למעלה */}
+        <div className="w-full md:w-1/2 flex flex-col pt-12 md:pt-20 px-6 md:px-16" style={{
+          marginTop: language === 'he' ? '0' : '0'
+        }}>
     <span style={{ 
       fontSize: '10px', 
       letterSpacing: '0.6em', 
