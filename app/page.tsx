@@ -15,13 +15,12 @@ export default function Home() {
   const { t, lang } = useLanguage();
   const { home } = t;
 
-  // פונקציית עזר למשיכת נתוני הפרויקטים מהתרגומים
+  // פונקציית עזר למשיכת נתוני הפרויקט מהתרגומים
   const getProjectData = (id: number) => {
-    const project = t.projects?.items?.find((p: any) => p.id === id);
-    return project || { 
-      title: lang === 'en' ? "Luxury Villa" : "וילה יוקרתית", 
-      category: lang === 'en' ? "Interior Design" : "עיצוב פנים",
-      location: lang === 'en' ? "Israel" : "ישראל"
+    return t.projects?.items?.find((p: any) => p.id === id) || { 
+      title: "Project", 
+      category: "Interior Design", 
+      location: "Israel" 
     };
   };
 
@@ -60,7 +59,7 @@ export default function Home() {
       </section>
 
       {/* ── Featured Work ── */}
-      <section className="px-6 md:px-8 py-16 md:py-20">
+      <section className="px-6 md:px-8 py-16 md:py-20 mt-0 md:mt-20">
         <div className="flex items-baseline justify-between mb-12 md:mb-16">
           <h2 className="font-sans text-xs tracking-[0.3em] uppercase text-charcoal">{home.selectedWork}</h2>
           <Link
@@ -71,7 +70,7 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
           {featuredMeta.map((meta) => {
             const projectInfo = getProjectData(meta.id);
             return (
@@ -80,19 +79,18 @@ export default function Home() {
                 href={`/projects/${meta.slug}`} 
                 className="group block cursor-pointer"
               >
-                <div className="aspect-[16/9] md:aspect-[4/5] overflow-hidden bg-[#f0ede8] mb-6 relative">
+                <div className="aspect-[16/9] md:aspect-[4/5] overflow-hidden bg-[#f0ede8] mb-4 relative">
                   <Image
                     src={meta.image}
                     alt={projectInfo.title}
                     fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-w-768px) 100vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
-                <p className="font-sans text-[10px] tracking-[0.2em] uppercase text-muted mb-2">
+                <p className="font-sans text-[10px] tracking-[0.2em] uppercase text-muted mb-1">
                   {projectInfo.category}
                 </p>
-                <h3 className="font-sans text-base font-medium text-charcoal mb-1">
+                <h3 className="font-sans text-sm font-medium text-charcoal">
                   {projectInfo.title}
                 </h3>
                 <p className="font-sans text-[11px] text-muted">
@@ -105,14 +103,14 @@ export default function Home() {
       </section>
 
       {/* ── Philosophy ── */}
-      <section className="px-6 md:px-8 py-20 md:py-32 border-t border-[#f0ede8]">
-        <div className="max-w-3xl mx-auto text-center">
-          <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-muted mb-10">
+      <section className="px-6 md:px-8 py-20 md:py-24 border-t border-[#f0ede8]">
+        <div className="max-w-2xl mx-auto text-center">
+          <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-muted mb-8">
             {home.philosophy}
           </p>
           <blockquote
-            className="font-sans font-light leading-snug text-charcoal mb-10"
-            style={{ fontSize: 'clamp(1.5rem, 3.5vw, 2.6rem)' }}
+            className="font-sans font-light leading-snug text-charcoal mb-8"
+            style={{ fontSize: 'clamp(1.4rem, 3vw, 2.5rem)' }}
           >
             {home.philosophyQuote}
           </blockquote>
@@ -126,20 +124,20 @@ export default function Home() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="px-6 md:px-8 py-20 md:py-24 bg-charcoal">
+      <section className="px-6 md:px-8 py-16 md:py-20 bg-charcoal">
         <div className="max-w-xl">
           <h2
-            className="font-sans font-light text-white mb-6 leading-tight"
-            style={{ fontSize: 'clamp(2rem, 4.5vw, 3.8rem)' }}
+            className="font-sans font-light text-white mb-4 leading-tight"
+            style={{ fontSize: 'clamp(1.8rem, 4vw, 3.5rem)' }}
           >
             {home.ctaHeadline} {home.ctaHeadline2}
           </h2>
-          <p className="font-sans text-sm text-white/60 leading-relaxed mb-12 max-w-sm">
+          <p className="font-sans text-sm text-white/50 leading-relaxed mb-10 max-w-sm">
             {home.ctaDesc}
           </p>
           <Link
             href="/contact"
-            className="inline-block font-sans text-[11px] tracking-[0.2em] uppercase text-white border border-white/30 px-10 py-4 hover:bg-white hover:text-charcoal transition-colors duration-300"
+            className="inline-block font-sans text-[11px] tracking-[0.2em] uppercase text-white border border-white/30 px-8 py-3 hover:bg-white hover:text-charcoal transition-colors duration-300"
           >
             {home.ctaButton}
           </Link>
