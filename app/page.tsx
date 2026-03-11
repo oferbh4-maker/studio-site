@@ -4,9 +4,9 @@ import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const featuredMeta = [
-  { id: 1, year: '2024', image: '/images/outdoor%20.jpg' },
-  { id: 2, year: '2024', image: '/images/living%20room.jpg' },
-  { id: 3, year: '2023', image: '/images/kitchen.png' },
+  { id: 1, year: '2024', image: '/images/outdoor%20.jpg', slug: 'project-1' },
+  { id: 2, year: '2024', image: '/images/living%20room.jpg', slug: 'project-2' },
+  { id: 3, year: '2023', image: '/images/kitchen.png', slug: 'project-3' },
 ];
 
 export default function Home() {
@@ -60,8 +60,26 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
-          {featuredMeta.map((meta, i) => {
-            const p = home.featuredProjects[i];
+         {featuredMeta.map((project) => (
+  <Link 
+    key={project.id} 
+    href={`/projects/${project.slug}`} 
+    className="group block cursor-pointer"
+  >
+    <div className="relative aspect-[3/4] overflow-hidden bg-gray-100">
+      <Image
+        src={project.image}
+        alt={`Project ${project.id}`}
+        fill
+        className="object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+    </div>
+    <div className="mt-4 flex justify-between items-baseline">
+      <span className="text-sm text-muted uppercase tracking-wider">{project.year}</span>
+      {/* כאן אפשר להוסיף שם פרויקט אם תרצה */}
+    </div>
+  </Link>
+))}
             return (
               <article key={meta.id} className="group cursor-pointer">
                 {/* aspect-[4/5] on desktop, aspect-[16/9] on mobile for better fit */}
