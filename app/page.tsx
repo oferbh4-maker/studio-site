@@ -1,6 +1,8 @@
 'use client';
 
+import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const featuredMeta = [
@@ -13,10 +15,20 @@ export default function Home() {
   const { t, lang } = useLanguage();
   const { home } = t;
 
+  // פונקציית עזר למשיכת נתוני הפרויקטים מהתרגומים
+  const getProjectData = (id: number) => {
+    const project = t.projects?.items?.find((p: any) => p.id === id);
+    return project || { 
+      title: lang === 'en' ? "Luxury Villa" : "וילה יוקרתית", 
+      category: lang === 'en' ? "Interior Design" : "עיצוב פנים",
+      location: lang === 'en' ? "Israel" : "ישראל"
+    };
+  };
+
   return (
-    <>
+    <div className="bg-white">
       {/* ── Hero ── */}
-      <section className="min-h-screen flex flex-col justify-end px-6 md:px-8 pb-16 md:pb-20 pt-28 md:pt-32 border-b border-silk">
+      <section className="min-h-screen flex flex-col justify-end px-6 md:px-8 pb-16 md:pb-20 pt-28 md:pt-32 border-b border-[#f0ede8]">
         <div className="max-w-4xl">
           <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-muted mb-6">
             {home.heroLabel}
@@ -48,7 +60,7 @@ export default function Home() {
       </section>
 
       {/* ── Featured Work ── */}
-      <section className="px-6 md:px-8 py-16 md:py-20 mt-0 md:mt-20">
+      <section className="px-6 md:px-8 py-16 md:py-20">
         <div className="flex items-baseline justify-between mb-12 md:mb-16">
           <h2 className="font-sans text-xs tracking-[0.3em] uppercase text-charcoal">{home.selectedWork}</h2>
           <Link
@@ -59,55 +71,48 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
-         {featuredMeta.map((project) => (
-  <Link 
-    key={project.id} 
-    href={`/projects/${project.slug}`} 
-    className="group block cursor-pointer"
-  >
-    <div className="relative aspect-[3/4] overflow-hidden bg-gray-100">
-      <Image
-        src={project.image}
-        alt={`Project ${project.id}`}
-        fill
-        className="object-cover transition-transform duration-500 group-hover:scale-105"
-      />
-    </div>
-    <div className="mt-4 flex justify-between items-baseline">
-      <span className="text-sm text-muted uppercase tracking-wider">{project.year}</span>
-      {/* כאן אפשר להוסיף שם פרויקט אם תרצה */}
-    </div>
-  </Link>
-))}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+          {featuredMeta.map((meta) => {
+            const projectInfo = getProjectData(meta.id);
             return (
-              <article key={meta.id} className="group cursor-pointer">
-                {/* aspect-[4/5] on desktop, aspect-[16/9] on mobile for better fit */}
-                <div className="aspect-[16/9] md:aspect-[4/5] overflow-hidden bg-silk mb-4">
-                  <img
+              <Link 
+                key={meta.id} 
+                href={`/projects/${meta.slug}`} 
+                className="group block cursor-pointer"
+              >
+                <div className="aspect-[16/9] md:aspect-[4/5] overflow-hidden bg-[#f0ede8] mb-6 relative">
+                  <Image
                     src={meta.image}
-                    alt={p.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    alt={projectInfo.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-w-768px) 100vw, 33vw"
                   />
                 </div>
-                <p className="font-sans text-[10px] tracking-[0.2em] uppercase text-muted mb-1">{p.category}</p>
-                <h3 className="font-sans text-sm font-medium text-charcoal">{p.title}</h3>
-                <p className="font-sans text-[11px] text-muted">{p.location} — {meta.year}</p>
-              </article>
+                <p className="font-sans text-[10px] tracking-[0.2em] uppercase text-muted mb-2">
+                  {projectInfo.category}
+                </p>
+                <h3 className="font-sans text-base font-medium text-charcoal mb-1">
+                  {projectInfo.title}
+                </h3>
+                <p className="font-sans text-[11px] text-muted">
+                  {projectInfo.location} — {meta.year}
+                </p>
+              </Link>
             );
           })}
         </div>
       </section>
 
       {/* ── Philosophy ── */}
-      <section className="px-6 md:px-8 py-20 md:py-24 border-t border-silk">
-        <div className="max-w-2xl mx-auto text-center">
-          <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-muted mb-8">
+      <section className="px-6 md:px-8 py-20 md:py-32 border-t border-[#f0ede8]">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-muted mb-10">
             {home.philosophy}
           </p>
           <blockquote
-            className="font-sans font-light leading-snug text-charcoal mb-8"
-            style={{ fontSize: 'clamp(1.4rem, 3vw, 2.5rem)' }}
+            className="font-sans font-light leading-snug text-charcoal mb-10"
+            style={{ fontSize: 'clamp(1.5rem, 3.5vw, 2.6rem)' }}
           >
             {home.philosophyQuote}
           </blockquote>
@@ -121,25 +126,25 @@ export default function Home() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="px-6 md:px-8 py-16 md:py-20 bg-charcoal">
+      <section className="px-6 md:px-8 py-20 md:py-24 bg-charcoal">
         <div className="max-w-xl">
           <h2
-            className="font-sans font-light text-cream mb-4 leading-tight"
-            style={{ fontSize: 'clamp(1.8rem, 4vw, 3.5rem)' }}
+            className="font-sans font-light text-white mb-6 leading-tight"
+            style={{ fontSize: 'clamp(2rem, 4.5vw, 3.8rem)' }}
           >
             {home.ctaHeadline} {home.ctaHeadline2}
           </h2>
-          <p className="font-sans text-sm text-cream/50 leading-relaxed mb-10 max-w-sm">
+          <p className="font-sans text-sm text-white/60 leading-relaxed mb-12 max-w-sm">
             {home.ctaDesc}
           </p>
           <Link
             href="/contact"
-            className="inline-block font-sans text-[11px] tracking-[0.2em] uppercase text-cream border border-cream/30 px-8 py-3 hover:bg-cream hover:text-charcoal transition-colors duration-300"
+            className="inline-block font-sans text-[11px] tracking-[0.2em] uppercase text-white border border-white/30 px-10 py-4 hover:bg-white hover:text-charcoal transition-colors duration-300"
           >
             {home.ctaButton}
           </Link>
         </div>
       </section>
-    </>
+    </div>
   );
-} 
+}
